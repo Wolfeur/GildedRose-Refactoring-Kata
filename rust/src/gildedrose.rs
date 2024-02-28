@@ -1,8 +1,8 @@
 use std::fmt::{self, Display};
 pub struct Item {
-    pub name: String,
+    pub name: String, // type based on name?
     pub sell_in: i32,
-    pub quality: i32,
+    pub quality: i32, // u8 sufficient?
 }
 
 impl Item {
@@ -22,7 +22,7 @@ impl Display for Item {
 }
 
 pub struct GildedRose {
-    pub items: Vec<Item>,
+    pub items: Vec<Item>, // need `pub`?
 }
 
 impl GildedRose {
@@ -31,7 +31,7 @@ impl GildedRose {
     }
 
     pub fn update_quality(&mut self) {
-        for i in 0..self.items.len() {
+        for i in 0..self.items.len() { // foreach?
             if self.items[i].name != "Aged Brie" && self.items[i].name != "Backstage passes to a TAFKAL80ETC concert"
             {
                 if self.items[i].quality > 0 {
@@ -39,7 +39,7 @@ impl GildedRose {
                         self.items[i].quality = self.items[i].quality - 1;
                     }
                 }
-            } else {
+            } else { // else if?
                 if self.items[i].quality < 50 {
                     self.items[i].quality = self.items[i].quality + 1;
 
@@ -80,9 +80,14 @@ impl GildedRose {
                     }
                 }
             }
+            //lots of logic. private methods would be nice. static method enough?
+            //probably better with `match`. enum better? would enforce exhaustiveness.
+            //can't define type within items nor in wrapping struct. defined on the fly anyway. maybe not worth it?
         }
     }
 }
+
+//create item type enum? quality alteration methods in it?
 
 #[cfg(test)]
 mod tests {
